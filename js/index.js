@@ -128,9 +128,9 @@ const vueApp = new Vue({
                 return
             }
 
-            const date = new Date().toLocaleDateString();
-            const clock = new Date().toLocaleTimeString()
-            const dateClock = `${date}  ${clock}`
+            let date = new Date().toLocaleDateString();
+            let clock = new Date().toLocaleTimeString()
+            let dateClock = `${date}  ${clock}`
             
             let newMessage = {
                 date: dateClock,
@@ -145,6 +145,10 @@ const vueApp = new Vue({
             setTimeout(() => {
 
                 let resp = this.autoResp[Math.round(Math.random() * this.autoResp.length - 1)]
+
+                date = new Date().toLocaleDateString();
+                clock = new Date().toLocaleTimeString()
+                dateClock = `${date}  ${clock}`
 
                 newMessage = {
                     date: dateClock,
