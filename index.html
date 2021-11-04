@@ -53,7 +53,7 @@
                             
                             <div class="chat-bar">
                                 <div class="chat-list-container">
-                                    <div v-for="contact, i in contacts" class="contact-card">
+                                    <div v-for="contact, i in contacts" class="contact-card" @click="saveChat(contact)">
                                         <div class="image-contact">
                                             <img class="w-100" :src="contact.image" alt="">
                                         </div>
@@ -71,12 +71,12 @@
                         <div class="col-8 right-column">
                             <div class="chat-top">
                                 <div class="avatar-top-container">
-                                    <img class="w-100" src="img/avatar_1.jpg" alt="">
+                                    <img class="w-100" :src="activeChat.image" alt="">
                                 </div>
                                 <div class="username-top-container">
                                     <div class="text">
-                                        <h4 class="my-name">Nome utente</h4>
-                                        <h6>orario</h6>
+                                        <h4 class="my-name">{{activeChat.name}}</h4>
+                                        <h6>{{activeChat.messages[activeChat.messages.length -1].date}}</h6>
                                     </div>
                                 </div>
                                 <div class="action-top">
@@ -89,7 +89,17 @@
                             </div>
 
                             <div class="chat">
-
+                                <!-- qui stampiamo i messaggi  -->
+                                <div class="msg-container" v-for="message in activeChat.messages">
+                                    <div class="row-msg" :class="message.status === 'sent' ? 'ms-auto justify-content-end' : '' ">
+                                        <div class="msg" :class="message.status === 'sent' ? 'sent text-end' : 'receveid'">
+                                            <p class="msg-text">{{message.text}}</p>
+                                            <p class="msg-date">{{message.date}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                
                             </div>
 
                             <div class="chat-bottom-action">
@@ -98,7 +108,7 @@
                                 </div>
                                 
                                 <div class="input-text-chat">
-                                    <input class="input-message" type="text" placeholder="Scrivi qui il tuo messaggio...">
+                                    <input class="input-message" type="text" v-model="inputTextMessage" @keydown.enter="sendMessage()" placeholder="Scrivi qui il tuo messaggio...">
                                 </div>
                                
                                 <div class="button-chat-bar">

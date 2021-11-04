@@ -12,8 +12,7 @@
 }
 
 .row{
-    min-height: 500px;
-    max-height: 800px;
+    height: 800px;
 }
 
 /* parte sinistra */
@@ -182,6 +181,8 @@
     flex-grow: 1;
     height: 150px;
     background-image: url("../img/mine.jpg");
+    padding: 15px;
+    overflow: auto;
 }
 
 .chat-bottom-action {
@@ -219,3 +220,39 @@
     border: none;
     border-radius: 10px;
 }
+
+.msg-container {
+    margin-bottom: 20px;
+}
+
+.row-msg {
+    display: flex;    
+}
+
+.msg{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    min-width: 20%;
+    max-width: 45%;
+    position: relative;
+}
+
+.msg-date{
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    font-size: 11px;
+    color: #ADAEAD;
+    margin: 0;
+}
+
+.sent {
+    background-color: #D5F9BE;
+    
+}
+
+.receveid {
+    background-color: white;
+}
+

@@ -90,8 +90,72 @@ const vueApp = new Vue({
                 ],
             },
         ],
+        activeChat: {
+            name: "Matteo",
+            image: "img/avatar_1.jpg",
+            messages: [
+                {
+                    date: '03/11/2021 16.10.07',
+                    text: 'Hai portato fuori il cane?',
+                    status: 'sent'
+                },
+                {
+                    date: '03/11/2021 16.13.45',
+                    text: 'E lava i piatti',
+                    status: 'sent'
+                },
+                {
+                    date: '03/11/2021 16.14.21',
+                    text: 'Più tardi lo faccio',
+                    status: 'riceived'
+                },
+            ],
+        },
+        inputTextMessage: "",
+        autoResp: ["Ciao", "si certo", "no", "no, dimmi", "tra poco arrivo", "ci vediamo stasera"]
     },
+
     methods: {
+        saveChat(object){
+            this.activeChat = object
+        },
+
+        // da attivare quando premo invio
+        sendMessage(){
+            let textMessage = this.inputTextMessage
+
+            if(textMessage === "") {
+                return
+            }
+
+            const date = new Date().toLocaleDateString();
+            const clock = new Date().toLocaleTimeString()
+            const dateClock = `${date}  ${clock}`
+            
+            let newMessage = {
+                date: dateClock,
+                text: textMessage,
+                status: 'sent'
+            } 
+
+            this.activeChat.messages.push(newMessage)
+
+            this.inputTextMessage = ""
+
+            setTimeout(() => {
+
+                let resp = this.autoResp[Math.round(Math.random() * this.autoResp.length - 1)]
+
+                newMessage = {
+                    date: dateClock,
+                    text: resp,
+                    status: "received"
+                }
+
+                this.activeChat.messages.push(newMessage)
+
+            }, 2000);
+        },
         
     }
 });
