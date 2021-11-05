@@ -48,12 +48,12 @@
 
                             <div class="search-bar">
                                 <!-- possibile button per la lente, dando a search-bar un display flex  -->
-                                <input class="search-bar-input" type="text" placeholder="Cerca o inizia una nuova chat">
+                                <input class="search-bar-input" type="text" v-model="filterText" @keydown="filterSearch()" placeholder="Cerca o inizia una nuova chat">
                             </div>
                             
                             <div class="chat-bar">
                                 <div class="chat-list-container">
-                                    <div v-for="contact, i in contacts" class="contact-card" @click="saveChat(contact)">
+                                    <div v-for="contact, i in filterSearch()" class="contact-card" @click="saveChat(contact)">
                                         <div class="image-contact">
                                             <img class="w-100" :src="contact.image" alt="">
                                         </div>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
 
-                            <div class="chat">
+                            <div class="chat" ref="msgContainer">
                                 <!-- qui stampiamo i messaggi  -->
                                 <div class="msg-container" v-for="message in activeChat.messages">
                                     <div class="row-msg" :class="message.status === 'sent' ? 'ms-auto justify-content-end' : '' ">

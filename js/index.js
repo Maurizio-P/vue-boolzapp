@@ -83,7 +83,7 @@ const vueApp = new Vue({
                         status: 'received'
                     },
                     {
-                        date: '03/11/2021 20.15.00',
+                        date: '03/11/2021 20.04.00',
                         text: 'Dai ti aspetto per una pizza',
                         status: 'sent'
                     },
@@ -112,12 +112,14 @@ const vueApp = new Vue({
             ],
         },
         inputTextMessage: "",
-        autoResp: ["Ciao", "si certo", "no", "no, dimmi", "tra poco arrivo", "ci vediamo stasera"]
+        autoResp: ["Ciao", "si certo", "no", "no, dimmi", "tra poco arrivo", "ci vediamo stasera"],
+        filterText: ""
     },
 
     methods: {
         saveChat(object){
             this.activeChat = object
+
         },
 
         // da attivare quando premo invio
@@ -142,24 +144,40 @@ const vueApp = new Vue({
 
             this.inputTextMessage = ""
 
+            
             setTimeout(() => {
 
                 let resp = this.autoResp[Math.round(Math.random() * this.autoResp.length - 1)]
-
+                
                 date = new Date().toLocaleDateString();
                 clock = new Date().toLocaleTimeString()
                 dateClock = `${date}  ${clock}`
-
+                
+                
                 newMessage = {
                     date: dateClock,
                     text: resp,
                     status: "received"
                 }
-
+                
                 this.activeChat.messages.push(newMessage)
-
+                
+                this.scrollBottom()
             }, 2000);
+            
+            this.scrollBottom()
         },
-        
+
+        filterSearch(){
+            return this.contacts.filter((contact) => {
+                return contact.name.toLowerCase().includes(this.filterText.toLowerCase().trim())
+            })
+        },
+
+        scrollBottom(){
+            setTimeout(() => {
+                this.$refs.msgContainer.scrollTop = this.$refs.msgContainer.scrollHeight
+            }, 0);
+        },
     }
 });
